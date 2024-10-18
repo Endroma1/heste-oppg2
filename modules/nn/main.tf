@@ -27,12 +27,13 @@ resource "random_string" "random_string" {
   special = false
   upper = false
 }
-
-
-resource "azurerm_service_plan" "azurerm_service_plan" {
-  name                = "${lower(var.service-plan-name)}${random_string.random_string.result}"
-  resource_group_name = var.rg-name
+resource "azurerm_lb" "azurerm_lb" {
+  name                = "${lower(var.lb-name)}${random_string.random_string.result}"
   location            = var.rg-location
-  os_type             = "Linux"
-  sku_name            = "P1v2"
+  resource_group_name = var.rg-name
+
+  frontend_ip_configuration {
+    name                 = "${lower(var.frontend-ip-name)}${random_string.random_string.result}"
+    subnet_id            = var.subnet-id
+  }
 }
