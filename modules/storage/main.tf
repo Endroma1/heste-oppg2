@@ -42,7 +42,7 @@ resource "azurerm_storage_account" "azurerm_storage_account" {
   resource_group_name      = var.rg-name
   location                 = var.rg-location
   account_tier             = "Standard"
-  account_replication_type = "LRS"
+  account_replication_type = "GRS"
 
   static_website {
     index_document = var.index-document
