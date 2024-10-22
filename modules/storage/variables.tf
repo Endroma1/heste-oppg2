@@ -13,7 +13,7 @@ variable "rg-location" {
 
 variable "storage-acc-name" {
   type = string
-  default = "storageacc"
+  default = "storage"
 }
 
 variable "container-name" {
