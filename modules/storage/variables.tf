@@ -33,5 +33,5 @@ variable "index_document" {
 
 variable "source_content" {
   type = string
-  default = "<h1>Static website<h1>"
+  default = "<h1>Static website testing tests<h1>"
 }

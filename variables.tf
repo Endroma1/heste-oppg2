@@ -1,9 +1,9 @@
 variable "rg-name" {
-    type = string
-    default = "rg-web-hs"
+  type    = string
+  default = "rg-web-hs"
 }
 
 variable "rg-location" {
-    type = string
-    default = "West Europe"
+  type    = string
+  default = "West Europe"
 }
