@@ -22,18 +22,25 @@ provider "random" {
     
 }
 
+locals {
+  workspaces_suffix = terraform.workspace == "default" ? "" : "${terraform.workspace}"
+
+  lb-name = "${var.lb-name}-${local.workspaces_suffix}"
+  frontend-ip-name = "${var.frontend-ip-name}-${local.workspaces_suffix}"
+}
+
 resource "random_string" "random_string" {
   length = 10
   special = false
   upper = false
 }
 resource "azurerm_lb" "azurerm_lb" {
-  name                = "${lower(var.lb-name)}${random_string.random_string.result}"
+  name                = "${lower(local.lb-name)}${random_string.random_string.result}"
   location            = var.rg-location
   resource_group_name = var.rg-name
 
   frontend_ip_configuration {
-    name                 = "${lower(var.frontend-ip-name)}${random_string.random_string.result}"
+    name                 = "${lower(local.frontend-ip-name)}${random_string.random_string.result}"
     subnet_id            = var.subnet-id
   }
 }

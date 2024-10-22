@@ -22,6 +22,12 @@ provider "random" {
     
 }
 
+locals {
+  workspaces_suffix = terraform.workspace == "default" ? "" : "${terraform.workspace}"
+
+  service-plan-name = "${var.service-plan-name}-${local.workspaces_suffix}"
+}
+
 resource "random_string" "random_string" {
   length = 10
   special = false
@@ -30,7 +36,7 @@ resource "random_string" "random_string" {
 
 
 resource "azurerm_service_plan" "azurerm_service_plan" {
-  name                = "${lower(var.service-plan-name)}${random_string.random_string.result}"
+  name                = "${lower(local.service-plan-name)}${random_string.random_string.result}"
   resource_group_name = var.rg-name
   location            = var.rg-location
   os_type             = "Linux"

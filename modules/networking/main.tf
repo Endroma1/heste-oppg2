@@ -28,14 +28,22 @@ resource "random_string" "random_string" {
   upper = false
 }
 
+locals {
+  workspaces_suffix = terraform.workspace == "default" ? "" : "${terraform.workspace}"
+
+  network-sec-name = "${var.network-sec-name}-${local.workspaces_suffix}"
+  network-name = "${var.network-name}-${local.workspaces_suffix}"
+  subnet-name = "${var.subnet-name}-${local.workspaces_suffix}"
+}
+
 resource "azurerm_network_security_group" "azurerm_network_security_group" {
-  name                = "${lower(var.network-sec-name)}${random_string.random_string.result}"
+  name                = "${lower(local.network-sec-name)}${random_string.random_string.result}"
   location            = var.rg-location
   resource_group_name = var.rg-name
 }
 
 resource "azurerm_virtual_network" "azurerm_virtual_network" {
-  name                = "${lower(var.network-name)}${random_string.random_string.result}"
+  name                = "${lower(local.network-name)}${random_string.random_string.result}"
   location            = var.rg-location
   resource_group_name = var.rg-name
   address_space       = ["10.0.0.0/16"]
@@ -44,7 +52,7 @@ resource "azurerm_virtual_network" "azurerm_virtual_network" {
 }
 
 resource "azurerm_subnet" "subnet" {
-  name                 = "${lower(var.subnet-name)}${random_string.random_string.result}"
+  name                 = "${lower(local.subnet-name)}${random_string.random_string.result}"
   resource_group_name  = var.rg-name
   virtual_network_name = azurerm_virtual_network.azurerm_virtual_network.name
   address_prefixes     = ["10.0.1.0/24"]

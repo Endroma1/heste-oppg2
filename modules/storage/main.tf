@@ -22,6 +22,15 @@ provider "random" {
     
 }
 
+locals {
+  workspaces_suffix = terraform.workspace == "default" ? "" : "${terraform.workspace}"
+
+  storage-acc-name = "${var.storage-acc-name}-${local.workspaces_suffix}"
+  container-name = "${var.container-name}-${local.workspaces_suffix}"
+  blob-name = "${var.blob-name}-${local.workspaces_suffix}"
+}
+
+
 resource "random_string" "random_string" {
   length = 10
   special = false
@@ -29,7 +38,7 @@ resource "random_string" "random_string" {
 }
 
 resource "azurerm_storage_account" "azurerm_storage_account" {
-  name                     = "${lower(var.storage-acc-name)}${random_string.random_string.result}"
+  name                     = "${lower(local.storage-acc-name)}${random_string.random_string.result}"
   resource_group_name      = var.rg-name
   location                 = var.rg-location
   account_tier             = "Standard"
@@ -41,15 +50,18 @@ resource "azurerm_storage_account" "azurerm_storage_account" {
 }
 
 resource "azurerm_storage_container" "azurerm_storage_container" {
-  name                  = "${lower(var.container-name)}${random_string.random_string.result}"
+  name                  = "${lower(local.container-name)}${random_string.random_string.result}"
   storage_account_name  = azurerm_storage_account.azurerm_storage_account.name
   container_access_type = "private"
 }
 
 resource "azurerm_storage_blob" "example" {
-  name                   = "${lower(var.blob-name)}${random_string.random_string.result}"
+  name                   = "${lower(local.blob-name)}${random_string.random_string.result}"
   storage_account_name   = azurerm_storage_account.azurerm_storage_account.name
   storage_container_name = azurerm_storage_container.azurerm_storage_container.name
   type                   = "Block"
 }
 
+output "storageaccount-name" {
+  value = azurerm_storage_account.azurerm_storage_account.name
+}

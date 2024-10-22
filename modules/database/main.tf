@@ -22,6 +22,13 @@ provider "random" {
     
 }
 
+locals {
+  workspaces_suffix = terraform.workspace == "default" ? "" : "${terraform.workspace}"
+
+  mssql-server-name = "${var.mssql-server-name}-${local.workspaces_suffix}"
+  mssql-db-name = "${var.mssql-db-name}-${local.workspaces_suffix}"
+}
+
 resource "random_string" "random_string" {
   length = 10
   special = false
@@ -29,7 +36,7 @@ resource "random_string" "random_string" {
 }
 
 resource "azurerm_mssql_server" "azurerm_mssql_server" {
-  name                         = "${lower(var.mssql-server-name)}${random_string.random_string.result}"
+  name                         = "${lower(local.mssql-server-name)}${random_string.random_string.result}"
   resource_group_name          = var.rg-name
   location                     = var.rg-location
   version                      = "12.0"

@@ -9,12 +9,22 @@ terraform {
         version = "3.6.3"
     }
   }
+  /*backend "azurerm" {
+    resource_group_name  = "rg-web-hs"  # Can be passed via `-backend-config=`"resource_group_name=<resource group name>"` in the `init` command.
+    storage_account_name = "kcop3s44sc"                     # Can be passed via `-backend-config=`"storage_account_name=<storage account name>"` in the `init` command.
+    container_name       = "tfstate-backend-hs"                       # Can be passed via `-backend-config=`"container_name=<container name>"` in the `init` command.
+    key                  = "hs.web.backend.terraform.tfstate"        # Can be passed via `-backend-config=`"key=<blob key name>"` in the `init` command.
+    tenant_id = "value"
+    client_id = "value"
+    client_secret = "value"
+    subscription_id = "value"
+  }*/
 }
 
 provider "azurerm" {
 subscription_id = "7c064ed9-c59f-4935-938b-f1a654d088a7"
   features {
-    
+
   }
 }
 
@@ -28,9 +38,14 @@ resource "random_string" "random_string" {
   upper = false
 }
 
+locals {
+  workspaces_suffix = terraform.workspace == "default" ? "" : "${terraform.workspace}"
+
+  rg-name = "${var.rg-name}-${local.workspaces_suffix}"
+}
 
 resource "azurerm_resource_group" "rg-website" {
-  name     = var.rg-name
+  name     = local.rg-name
   location = var.rg-location
 }
 
