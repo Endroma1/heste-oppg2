@@ -1,11 +1,11 @@
-name: First Github Action
+name: web-app
 
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
     paths:
-      - 'heste-oppg2/**'
+      - './**'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -15,7 +15,7 @@ jobs:
   # This workflow contains a single job called "build"
   resourcegroups:
     # The type of runner that the job will run on
-    runs-on: web
+    runs-on: ubuntu-latest
     
     name: 'Build and Deploy Azure Resources'
     env:
@@ -23,7 +23,7 @@ jobs:
       ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
       ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-      WORKING_DIR: ./heste-oppg2
+      WORKING_DIR: ./
       
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
