@@ -18,10 +18,6 @@ provider "azurerm" {
   }
 }
 
-provider "random" {
-    
-}
-
 locals {
   workspaces_suffix = terraform.workspace == "default" ? "" : "${terraform.workspace}"
 
