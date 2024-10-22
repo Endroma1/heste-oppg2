@@ -65,3 +65,7 @@ module "storage" {
   rg-location = azurerm_resource_group.rg-website.location
   rg-name = azurerm_resource_group.rg-website.name
 }
+
+output "web-link" {
+  value = module.storage.primary_web_endpoint
+}
