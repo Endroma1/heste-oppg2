@@ -25,3 +25,13 @@ variable "blob-name" {
   type = string
   default = "blob"
 }
+
+variable "index_document" {
+  type = string
+  default = "index.html"
+}
+
+variable "source_content" {
+  type = string
+  default = "<h1>Static website<h1>"
+}

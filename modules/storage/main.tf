@@ -45,19 +45,19 @@ resource "azurerm_storage_account" "azurerm_storage_account" {
   }
 }
 
-resource "azurerm_storage_container" "azurerm_storage_container" {
-  name                  = "${lower(local.container-name)}${random_string.random_string.result}"
-  storage_account_name  = azurerm_storage_account.azurerm_storage_account.name
-  container_access_type = "private"
-}
-
 resource "azurerm_storage_blob" "example" {
-  name                   = "${lower(local.blob-name)}${random_string.random_string.result}"
+  name                   = var.index-document
   storage_account_name   = azurerm_storage_account.azurerm_storage_account.name
-  storage_container_name = azurerm_storage_container.azurerm_storage_container.name
+  storage_container_name = "$web"
   type                   = "Block"
+  content_type = "text/html"
+  source_content = var.source_content
 }
 
 output "storageaccount-name" {
   value = azurerm_storage_account.azurerm_storage_account.name
+}
+
+output "primary_web_endpoint" {
+  value = azurerm_storage_account.sa_web.primary_web_endpoint
 }
