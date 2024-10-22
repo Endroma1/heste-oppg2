@@ -59,5 +59,5 @@ output "storageaccount-name" {
 }
 
 output "primary_web_endpoint" {
-  value = azurerm_storage_account.sa_web.primary_web_endpoint
+  value = azurerm_storage_account.azurerm_storage_account.primary_web_endpoint
 }
