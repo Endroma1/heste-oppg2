@@ -9,16 +9,12 @@ terraform {
         version = "3.6.3"
     }
   }
-  /*backend "azurerm" {
-    resource_group_name  = "rg-web-hs"  # Can be passed via `-backend-config=`"resource_group_name=<resource group name>"` in the `init` command.
-    storage_account_name = "kcop3s44sc"                     # Can be passed via `-backend-config=`"storage_account_name=<storage account name>"` in the `init` command.
-    container_name       = "tfstate-backend-hs"                       # Can be passed via `-backend-config=`"container_name=<container name>"` in the `init` command.
-    key                  = "hs.web.backend.terraform.tfstate"        # Can be passed via `-backend-config=`"key=<blob key name>"` in the `init` command.
-    tenant_id = "value"
-    client_id = "value"
-    client_secret = "value"
-    subscription_id = "value"
-  }*/
+  backend "azurerm" {
+    resource_group_name  = "rg-backend-hs"  # Can be passed via `-backend-config=`"resource_group_name=<resource group name>"` in the `init` command.
+    storage_account_name = "sabackendhsr0xa1zwx4e"                     # Can be passed via `-backend-config=`"storage_account_name=<storage account name>"` in the `init` command.
+    container_name       = "sc-backend-hs"                       # Can be passed via `-backend-config=`"container_name=<container name>"` in the `init` command.
+    key                  = "sa-accesskey-hs"        # Can be passed via `-backend-config=`"key=<blob key name>"` in the `init` command.
+  }
 }
 
 provider "azurerm" {
