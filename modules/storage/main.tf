@@ -25,8 +25,8 @@ provider "random" {
 locals {
   workspaces_suffix = terraform.workspace == "default" ? "" : "${terraform.workspace}"
 
-  storage-acc-name = "${var.storage-acc-name}-${local.workspaces_suffix}"
-  container-name = "${var.container-name}-${local.workspaces_suffix}"
+  storage-acc-name = "${var.storage-acc-name}${local.workspaces_suffix}"
+  container-name = "${var.container-name}${local.workspaces_suffix}"
   blob-name = "${var.blob-name}-${local.workspaces_suffix}"
 }
 

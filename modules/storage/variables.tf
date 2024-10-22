@@ -18,10 +18,10 @@ variable "storage-acc-name" {
 
 variable "container-name" {
   type = string
-  default = "container-"
+  default = "container"
 }
 
 variable "blob-name" {
   type = string
-  default = "blob-"
+  default = "blob"
 }
