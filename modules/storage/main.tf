@@ -39,6 +39,7 @@ resource "azurerm_storage_account" "azurerm_storage_account" {
   location                 = var.rg-location
   account_tier             = "Standard"
   account_replication_type = "GRS"
+  min_tls_version = "TLS1_2"
 
   static_website {
     index_document = var.index-document
