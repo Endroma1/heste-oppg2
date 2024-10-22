@@ -24,10 +24,6 @@ subscription_id = "7c064ed9-c59f-4935-938b-f1a654d088a7"
   }
 }
 
-provider "random" {
-    
-}
-
 resource "random_string" "random_string" {
   length = 10
   special = false
