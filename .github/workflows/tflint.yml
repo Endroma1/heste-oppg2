@@ -1,11 +1,11 @@
 # This is a basic workflow to help validate your Terraform configuration
 
-name: Validate Infrastructure
+name: Terraform lint
 
 # Controls when the workflow will run
 on:
   workflow_run:
-    workflows: ["Terraform Validate"]
+    workflows: ["Validate Infrastructure"]
     types:
       - completed
   workflow_dispatch:
