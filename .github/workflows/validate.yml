@@ -43,3 +43,8 @@ jobs:
         id: validate
         run: terraform validate
         working-directory: ${{ env.WORKING_DIR }}
+        
+      - name: Terraform format
+        id: format
+        run: terraform fmt
+        working-directory: ${{ env.WORKING_DIR}}
